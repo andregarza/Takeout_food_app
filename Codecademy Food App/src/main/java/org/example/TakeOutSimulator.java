@@ -13,6 +13,8 @@ public class TakeOutSimulator<T>{
         this.input = input;
     }
 
+    // getOutputOnIntInput will retrieve the user input and utilize a specific inputRetriever interface implementation
+
     private  T getOutputOnIntInput(String userInputPrompt, IntUserInputRetriever intUserInputRetriever){
         while(true){
             System.out.println(userInputPrompt);
@@ -32,6 +34,8 @@ public class TakeOutSimulator<T>{
 
     }
 
+    // this method will implement the IntUserInputRetriever to create a way for the user to terminate the simulation
+
     public boolean shouldSimulate() throws IllegalArgumentException {
 
         String userPrompt = "Enter 1 to CONTINUE simulation or 0 to EXIT program";
@@ -49,6 +53,8 @@ public class TakeOutSimulator<T>{
 
         return (boolean) getOutputOnIntInput(userPrompt, intUserInputRetriever);
     }
+
+    // this method will implement the IntUserInputRetriever to get the desired menu selection from the user
 
     public Food getMenuSelection() throws IllegalArgumentException{
         String userPrompt = "Today's Menu Options! \n " + menu.toString();
@@ -70,6 +76,8 @@ public class TakeOutSimulator<T>{
 
     }
 
+    // this method will implement the IntUserInputRetriever to continue to the menu or to go to the checkout
+
     public boolean isStillOrderingFood() throws IllegalArgumentException{
         String userPrompt = "Enter 1 to CONTINUE shopping or 0 to CHECKOUT: ";
         IntUserInputRetriever intUserInputRetriever = s -> {
@@ -82,7 +90,10 @@ public class TakeOutSimulator<T>{
             else return new IllegalArgumentException();
         };
         return (boolean) getOutputOnIntInput(userPrompt, intUserInputRetriever);
+
     }
+
+    // this method will implement the IntUserInputRetriever to checkout the user order
 
     public void checkoutCustomer(ShoppingBag<Food> shoppingBag) {
         System.out.println("Processing payment... \n");
@@ -91,6 +102,8 @@ public class TakeOutSimulator<T>{
         System.out.println("Thank you and enjoy your food! \n");
 
     }
+
+    // this method will create the prompt for the user to order the food and adding it to the shopping list
 
     public void takeOutPrompt(){
         ShoppingBag<Food> shoppingBag = new ShoppingBag<>();
@@ -114,6 +127,8 @@ public class TakeOutSimulator<T>{
         checkoutCustomer(shoppingBag);
 
     }
+
+    // this method will start the prompt and will be started on the main class 
 
     public void startTakeOutSimulator(){
         boolean status = true;
